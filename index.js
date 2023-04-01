@@ -1,11 +1,11 @@
 // 1. Fetch movie data
-fetch('db.json')
+fetch("db.json")
   .then(response => response.json())
   .then(data => {
     // 2. Extract details of the first movie
     const movie = data.films[0];
     const { poster, title, runtime, showtime, capacity, tickets_sold } = movie;
-    const availableTickets = capacity - tickets_sold;
+    availableTickets = capacity - tickets_sold;
 
     // 3. Set details in the HTML elements
     document.getElementById('poster').src = poster;
@@ -22,17 +22,32 @@ fetch('db.json')
       li.innerHTML = `<img src="${poster}" alt="${title}"><div><h4>${title}</h4><p>Showtime: ${showtime}</p></div>`;
       li.addEventListener('click', () => showMovieDetails(id));
       filmsList.appendChild(li);
+        });
+
+    // 5. Set up buy ticket button click event taking buyTicket as a callback
+    document.getElementById('buy-ticket').addEventListener('click', buyTicket);
+    })
+    .catch(error => {
+    console.log(error);
     });
 
-    // 5. Add event listener to Buy Ticket button
-    const buyTicketButton = document.getElementById('buy-ticket');
-    buyTicketButton.addEventListener('click', () => {
+    // buyTicket function decreases the number of available votes by one after every
+    // click of the Buy Ticket button. The button greys out (is disabled) 
+    // and becomes ineffective once the available votes reaches 0.
+    function buyTicket() {
       if (availableTickets > 0) {
         availableTickets--;
-        document.getElementById('available-tickets').textContent = availableTickets;
-        if (availableTickets === 0) {
-          buyTicketButton.disabled = true;
-        }
-      }
-    });
-  });
+        document.getElementById('available-tickets').textContent = availableTickets;}
+      if (availableTickets === 0) {
+          const buyButton = document.getElementById('buy-ticket');
+          buyButton.disabled = true;
+    }}
+   
+
+
+
+  
+   
+  
+  
+  

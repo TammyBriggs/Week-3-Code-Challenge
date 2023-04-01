@@ -26,6 +26,8 @@ h1, h2, h3 {
 #films {
     list-style-type: none;
     padding: 0;
+    text-align: left;
+    margin-left: 50px;
 }
 #films img{
     border-radius: 10px;
@@ -39,6 +41,8 @@ img:hover{
 #buy-ticket {
     transition-duration: 0.4s;
     border-radius: 8px;
+    width: 70px;
+    height: 50px;
   }
   
 #buy-ticket:hover {
