@@ -37,12 +37,37 @@ fetch("db.json")
     function buyTicket() {
       if (availableTickets > 0) {
         availableTickets--;
-        document.getElementById('available-tickets').textContent = availableTickets;}
-      if (availableTickets === 0) {
+        document.getElementById('available-tickets').textContent = availableTickets;
+        if (availableTickets === 0) {
           const buyButton = document.getElementById('buy-ticket');
+          buyButton.textContent = 'Sold Out';
           buyButton.disabled = true;
-    }}
+        }
+      }}
    
+    // Function to update the movie details
+    function updateMovieDetails(movie) {
+      const { poster, title, runtime, showtime, capacity, tickets_sold } = movie;
+      availableTickets = capacity - tickets_sold;
+      document.getElementById('poster').src = poster;
+      document.getElementById('title').textContent = title;
+      document.getElementById('runtime').textContent = `${runtime} mins`;
+      document.getElementById('showtime').textContent = showtime;
+      document.getElementById('available-tickets').textContent = availableTickets;
+    }
+    // Function to show movie details when a movie is clicked
+    function showMovieDetails(id) {
+      fetch("db.json")
+        .then(response => response.json())
+        .then(data => {
+          const movie = data.films.find(movie => movie.id === id);
+          if (movie) {
+            updateMovieDetails(movie);
+          }
+        })
+      .catch(error => console.error(error));
+}
+
 
 
 
